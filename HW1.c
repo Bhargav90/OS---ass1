@@ -1,0 +1,74 @@
+#include<stdio.h>
+#include <stdlib.h>
+#include<string.h>
+#include<unistd.h>
+
+int main() {
+	char c;
+	int i = 0, j = 0, chk = 0;
+	int buff_size = 128;
+	int current_size = 128;
+	int max_tok = 10;
+	char tok_num = 0;
+	char **tok, *head;
+	tok = malloc(sizeof(char*) * max_tok);//a
+	*tok = (char*)malloc(buff_size);//a
+	head = *tok;//a
+	printf("$");
+	fflush(stdout);
+	while ((c = getchar()) != EOF) {
+		if (c == '\n'){
+			//printf("*");
+			//fflush(stdout);
+			//tok[i] = '\0'; //a
+			//printf("%s\n", tok[0]);
+			tok[tok_num][i] = '\0';//a
+			if (strcmp("exit", tok[tok_num]) == 0)//a
+				break;//a
+			tok_num++;//a
+			current_size = 128;//a
+			i = 0;//a
+			printf("$");
+			chk = 1;
+			if(strcmp(tok[j], "ls") == 0)
+		        {
+		                execl("/bin/ls", "ls", NULL);
+		        }
+		}
+		else if (c == ' ') {
+			tok[tok_num][i] = '\0';  //a
+			if (strcmp("exit", tok[tok_num]) == 0)//a
+				break;//a
+			i = 0;//a
+			current_size = 128;
+			tok_num++;
+			tok[tok_num] = (char*)malloc(buff_size);//added
+
+		}
+		else {
+		        if(chk == 1){//a
+		                chk = 0;
+		                tok[tok_num] = (char*)malloc(buff_size);//added
+		        }
+			tok[tok_num][i++] = c;
+		}
+
+		if (i == current_size) {
+			current_size += buff_size;
+			tok = realloc(tok, current_size);
+		}
+		if (tok_num == 10){//a
+			printf("Max tok overload\n");//a
+			break;//a
+		}//a
+	}
+
+	for (j; j <= tok_num; j++)//a
+	{//a
+		printf("%s\n", tok[j]);
+		free(tok[j]);//a
+	}//a
+	
+
+	return 0;
+}

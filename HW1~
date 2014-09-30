@@ -1,0 +1,15 @@
+#include<stdio.h>
+
+int main() {
+	int c;
+	printf("$\n")
+	while((c = getchar())!= eof){
+	        if (c == '\n'){
+	                printf("$");
+	        }
+        }
+	
+	
+	
+	return 0;
+}
